@@ -6,12 +6,16 @@ able to use additional class methods like `register_before_hook` and
 in the hookable component and control the order of the injections with
 simple before/after/replace hash syntax.
 
-To use, run:
+### Usage
 
 ```ruby
+pp ParentComponent.new.call
+# => "<div>Header</div><div>My Article Body</div><div>Footer</div>"
+
 PageBodyComponent.register_before_hook(:title, TitleComponent)
 PageBodyComponent.register_before_hook(:date, DateComponent, before: :title)
 PageBodyComponent.register_after_hook(:author, AuthorComponent)
 
 pp ParentComponent.new.call
+# => "<div>Header</div><h1>Posted 2 days ago</h1><h1>Welcome to my page</h1><div>My Article Body</div><small>by mbajur</small><div>Footer</div>"
 ```
